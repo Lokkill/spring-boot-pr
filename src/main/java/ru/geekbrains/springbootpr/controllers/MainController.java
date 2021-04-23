@@ -27,7 +27,9 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String showList(){
+    public String showList(Model model){
+        List<Product> products = productService.findAll();
+        model.addAttribute("products", products);
         return "ProductList";
     }
 
@@ -37,8 +39,7 @@ public class MainController {
     }
 
     @PostMapping("/add")
-    public String addProduct(@RequestParam Long id, @RequestParam String title, @RequestParam Float price){
-        Product product = new Product(id, title, price);
+    public String addProduct(@ModelAttribute Product product){
         productService.save(product);
         return "redirect:/list";
     }
