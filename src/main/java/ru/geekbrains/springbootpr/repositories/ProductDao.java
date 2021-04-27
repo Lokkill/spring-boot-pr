@@ -67,4 +67,37 @@ public class ProductDao {
             return products;
         }
     }
+
+    public void buyProduct(Long buyer_id, Long product_id){
+        try (Session session = utils.getCurrentSession()){
+            session.beginTransaction();
+            Optional<Buyer> buyer = Optional.ofNullable(session.get(Buyer.class, buyer_id));
+            Optional<Product> product = Optional.ofNullable(session.get(Product.class, product_id));
+            if (buyer.isPresent() && product.isPresent()){
+                String sql = String.format("INSERT Into buyers_products (buyer_id, product_id, price) VALUES (%s, %s, %s)", buyer_id, product_id, product.get().getPrice());
+                session.createNativeQuery(sql).executeUpdate();
+            }
+            session.getTransaction().commit();
+        }
+    }
+
+    public void incrementPriceProductById(Long id){
+        try(Session session = utils.getCurrentSession()) {
+            session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            product.setPrice(product.getPrice() + 10);
+            session.getTransaction().commit();
+        }
+    }
+
+    public void decrementPriceProductById(Long id){
+        try(Session session = utils.getCurrentSession()) {
+            session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            if (product.getPrice() > 10){
+                product.setPrice(product.getPrice() - 10);
+            }
+            session.getTransaction().commit();
+        }
+    }
 }

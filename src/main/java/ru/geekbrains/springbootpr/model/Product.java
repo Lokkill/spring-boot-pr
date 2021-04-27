@@ -21,7 +21,7 @@ public class Product {
     @Column(name = "title")
     private String title;
     @Column(name = "price")
-    private Float price;
+    private int price;
     @ManyToMany
     @JoinTable(name = "BUYERS_PRODUCTS",
             joinColumns = @JoinColumn(name = "PRODUCT_ID"),

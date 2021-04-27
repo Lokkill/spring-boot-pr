@@ -17,15 +17,15 @@ INSERT into buyers (title) VALUES
 ('Alice');
 
 DROP TABLE IF EXISTS buyers_products CASCADE;
-CREATE TABLE buyers_products (buyer_id bigint, product_id bigint, FOREIGN KEY (buyer_id) REFERENCES buyers (id), FOREIGN KEY (product_id) REFERENCES products (id));
-INSERT Into buyers_products (buyer_id, product_id) VALUES
-(1,1),
-(1,2),
-(2,1),
-(2,4),
-(2,5),
-(3,1),
-(3,3),
-(3,5);
+CREATE TABLE buyers_products (buyer_id bigint, product_id bigint, price bigint, FOREIGN KEY (buyer_id) REFERENCES buyers (id), FOREIGN KEY (product_id) REFERENCES products (id));
+INSERT Into buyers_products (buyer_id, product_id, price) VALUES
+(1,1, 10),
+(1,2, 15),
+(2,1, 11),
+(2,4, 12),
+(2,5, 16),
+(3,1, 20),
+(3,3, 30),
+(3,5, 25);
 
 COMMIT;

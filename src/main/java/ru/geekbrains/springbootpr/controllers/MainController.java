@@ -54,19 +54,40 @@ public class MainController {
         return "redirect:/list";
     }
 
-    @GetMapping("/productsByid/{id}")
+    // http://localhost:8189/productsById/1
+    @GetMapping("/productsById/{id}")
     public String findAllProductsByBuyerId(@PathVariable Long id, Model model){
         List<Product> products = productService.findProductsByBuyerId(id);
-        model.addAttribute("listById", products);
+        model.addAttribute("productsById", products);
         model.addAttribute("titleName", "Список продуктов по Id: " + id);
-        return "ListById";
+        return "ProductsById";
     }
 
+    // http://localhost:8189/buyersByid/1
     @GetMapping("/buyersByid/{id}")
     public String findAllBuyersByProductId(@PathVariable Long id, Model model){
         List<Buyer> buyers = buyerService.findAllBuyersByProductId(id);
-        model.addAttribute("listById", buyers);
+        model.addAttribute("buyersById", buyers);
         model.addAttribute("titleName", "Список покупателей по Id: " + id);
-        return "ListById";
+        return "BuyersById";
+    }
+
+    // http://localhost:8189/buy?buyer_id=1&product_id=1
+    @GetMapping("/buy")
+    public String buyProduct(@RequestParam(name = "buyer_id") Long buyer_id, @RequestParam(name = "product_id") Long product_id){
+        productService.buyProduct(buyer_id, product_id);
+        return "redirect:/productsById/" + buyer_id;
+    }
+
+    @GetMapping("/product/inc/{id}")
+    public String incrementPriceProductById(@PathVariable Long id){
+        productService.incrementPriceProductById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/product/dec/{id}")
+    public String decrementPriceProductById(@PathVariable Long id){
+        productService.decrementPriceProductById(id);
+        return "redirect:/";
     }
 }

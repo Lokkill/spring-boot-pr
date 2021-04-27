@@ -36,5 +36,16 @@ public class ProductService {
 
     public List<Product> findProductsByBuyerId(Long id){return productDao.findProductsByBuyerId(id);}
 
+    public void buyProduct(Long buyer_id, Long product_id){
+        productDao.buyProduct(buyer_id, product_id);
+    }
+
+    public void incrementPriceProductById(Long id){
+        productDao.incrementPriceProductById(id);
+    }
+
+    public void decrementPriceProductById(Long id){
+        productDao.decrementPriceProductById(id);
+    }
 
 }
