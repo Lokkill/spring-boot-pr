@@ -2,6 +2,7 @@ package ru.geekbrains.springbootpr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.springbootpr.model.Buyer;
 import ru.geekbrains.springbootpr.model.Product;
 import ru.geekbrains.springbootpr.repositories.ProductDao;
 
@@ -32,4 +33,8 @@ public class ProductService {
     public Optional<Product> findOneById(Long id) {
         return productDao.findOneById(id);
     }
+
+    public List<Product> findProductsByBuyerId(Long id){return productDao.findProductsByBuyerId(id);}
+
+
 }

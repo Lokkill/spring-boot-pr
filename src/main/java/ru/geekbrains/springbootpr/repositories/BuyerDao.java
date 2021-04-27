@@ -12,25 +12,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class ProductDao {
+public class BuyerDao {
     private HibernateUtils utils;
 
     @Autowired
-    public ProductDao(HibernateUtils utils) {
+    public BuyerDao(HibernateUtils utils) {
         this.utils = utils;
     }
 
 
-    public List<Product> findAll() {
+    public List<Buyer> findAll() {
         try(Session session = utils.getCurrentSession()) {
             session.beginTransaction();
-            List<Product> products = session.createQuery("from Product").getResultList();
+            List<Buyer> products = session.createQuery("from Buyer").getResultList();
             session.getTransaction().commit();
             return products;
         }
     }
 
-    public void save(Product product) {
+    public void save(Buyer product) {
         try(Session session = utils.getCurrentSession()) {
             session.beginTransaction();
             session.saveOrUpdate(product);
@@ -38,10 +38,10 @@ public class ProductDao {
         }
     }
 
-    public Optional<Product> findOneById(Long id) {
+    public Optional<Buyer> findOneById(Long id) {
         try(Session session = utils.getCurrentSession()) {
             session.beginTransaction();
-            Optional<Product> product = Optional.ofNullable(session.get(Product.class, id));
+            Optional<Buyer> product = Optional.ofNullable(session.get(Buyer.class, id));
             session.getTransaction().commit();
             return product;
         }
@@ -50,21 +50,21 @@ public class ProductDao {
     public void deleteById(Long id){
         try(Session session = utils.getCurrentSession()) {
             session.beginTransaction();
-            session.createQuery("delete from Product p where p.id = " + id).executeUpdate();
+            session.createQuery("delete from Buyer p where p.id = " + id).executeUpdate();
             session.getTransaction().commit();
         }
     }
 
-    public List<Product> findProductsByBuyerId(Long id){
+    public List<Buyer> findAllBuyersByProductId(Long id){
         try (Session session = utils.getCurrentSession()){
             session.beginTransaction();
-            Buyer buyer = session.get(Buyer.class, id);
-            List<Product> products = buyer.getProducts();
-            for (Product p : products){
-                System.out.println(p.getId());
+            Product product = session.get(Product.class, id);
+            List<Buyer> buyers = product.getBuyers();
+            for (Buyer b : buyers){
+                System.out.println(b.getId());
             }
             session.getTransaction().commit();
-            return products;
+            return buyers;
         }
     }
 }

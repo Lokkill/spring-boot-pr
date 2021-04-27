@@ -12,19 +12,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "buyers")
+public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "price")
-    private Float price;
     @ManyToMany
     @JoinTable(name = "BUYERS_PRODUCTS",
-            joinColumns = @JoinColumn(name = "PRODUCT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "BUYER_ID"))
-    private List<Buyer> buyers;
+            joinColumns = @JoinColumn(name = "BUYER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    private List<Product> products;
 }
