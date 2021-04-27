@@ -60,9 +60,6 @@ public class BuyerDao {
             session.beginTransaction();
             Product product = session.get(Product.class, id);
             List<Buyer> buyers = product.getBuyers();
-            for (Buyer b : buyers){
-                System.out.println(b.getId());
-            }
             session.getTransaction().commit();
             return buyers;
         }

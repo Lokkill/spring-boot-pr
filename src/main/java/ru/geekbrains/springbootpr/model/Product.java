@@ -22,7 +22,7 @@ public class Product {
     private String title;
     @Column(name = "price")
     private int price;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "BUYERS_PRODUCTS",
             joinColumns = @JoinColumn(name = "PRODUCT_ID"),
             inverseJoinColumns = @JoinColumn(name = "BUYER_ID"))
