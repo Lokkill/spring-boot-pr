@@ -90,4 +90,14 @@ public class MainController {
         productService.decrementPriceProductById(id);
         return "redirect:/";
     }
+
+    // http://localhost:8189/product/filter?min=30
+    @GetMapping("/product/filter")
+    public String filterProductList(@RequestParam(name = "min", defaultValue = "-10000000") int min,
+                                    @RequestParam(name = "max", defaultValue = "10000000") int max,
+                                    @RequestParam(name = "title", defaultValue = "") String title, Model model){
+        List<Product> products = productService.filterProduct(min, max, title);
+        model.addAttribute("products", products);
+        return "ProductList";
+    }
 }

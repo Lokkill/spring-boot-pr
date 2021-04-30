@@ -7,6 +7,21 @@ INSERT INTO products (title, price) VALUES
 ('Bread', 30),
 ('Tea', 45),
 ('Milk', 55),
+('Eggs', 60),
+('Cheese', 120),
+('Muesli', 35),
+('Tomato', 100),
+('Cheeps', 90),
+('Potato', 25),
+('Cola', 70),
+('Shrimps', 250),
+('Pasta', 80),
+('Yogurt', 50),
+('Blackberry', 185),
+('Choco-Pie', 100),
+('Grapes', 210),
+('Banana', 135),
+('Marshmallow', 190),
 ('Ice cream', 35);
 
 DROP TABLE IF EXISTS buyers CASCADE;

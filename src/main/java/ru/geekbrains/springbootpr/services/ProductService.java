@@ -2,19 +2,19 @@ package ru.geekbrains.springbootpr.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.springbootpr.model.Buyer;
 import ru.geekbrains.springbootpr.model.Product;
-import ru.geekbrains.springbootpr.repositories.ProductDao;
+import ru.geekbrains.springbootpr.repositories.ProductController;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProductService {
-    private final ProductDao productDao;
+    private final ProductController productDao;
 
     @Autowired
-    public ProductService(ProductDao productDao) {
+    public ProductService(ProductController productDao) {
         this.productDao = productDao;
     }
 
@@ -31,21 +31,26 @@ public class ProductService {
     }
 
     public Optional<Product> findOneById(Long id) {
-        return productDao.findOneById(id);
+        return productDao.findById(id);
     }
 
-    public List<Product> findProductsByBuyerId(Long id){return productDao.findProductsByBuyerId(id);}
+    public List<Product> findProductsByBuyerId(Long id){return productDao.hqlFindProductsByBuyerId(id);}
 
     public void buyProduct(Long buyer_id, Long product_id){
-        productDao.buyProduct(buyer_id, product_id);
+        //productDao.buyProduct(buyer_id, product_id);
     }
 
+    @Transactional
     public void incrementPriceProductById(Long id){
-        productDao.incrementPriceProductById(id);
+        productDao.hqlIncrementPriceProductById(id);
     }
 
+    @Transactional
     public void decrementPriceProductById(Long id){
-        productDao.decrementPriceProductById(id);
+        productDao.hqlDecrementPriceProductById(id);
     }
 
+    public List<Product> filterProduct(int min, int max, String title) {
+        return productDao.findAllByPriceBetweenAndTitleContains(min, max, title);
+    }
 }
