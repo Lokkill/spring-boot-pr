@@ -11,29 +11,23 @@
 
 <body>
 <div class="container">
-    <h1>Список товаров</h1>
-    <form method="get" th:action="@{/add}">
-        <button class="btn btn-primary" type="submit">Добавить товар</button>
-    </form>
+    <h1 th:text="${titleName}"></h1>
+    <br>
+    <a class="btn btn-primary stretched-link" th:href="${'/'}">Вернуться назад</a>
     <br>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>ID</th>
             <th>Наименование</th>
-            <th>Стоимость</th>
+            <th>Цена</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="p : ${products}">
+        <tr th:each="p : ${productsById}">
             <td th:text="${p.id}"></td>
             <td th:text="${p.title}"></td>
-            <td>
-                <a th:href="@{'/product/dec/' + ${p.id}}">-</a>
-                <span th:text="${p.price}"/>
-                <a th:href="@{'/product/inc/' + ${p.id}}">+</a>
-            </td>
-            <td><a th:href="${'/delete/' + p.id}">Удалить</a></td>
+            <td th:text="${p.price}"></td>
         </tr>
         </tbody>
     </table>
